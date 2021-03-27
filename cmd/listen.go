@@ -6,13 +6,13 @@ import (
 )
 
 var (
-	listenAddrs []string
-	listenSize  uint64
+	listenAddr string
+	listenSize int
 )
 
 func init() {
-	listenCmd.Flags().StringSliceVarP(&listenAddrs, "addrs", "a", []string{":5201"}, "bind address(es)")
-	listenCmd.Flags().Uint64VarP(&listenSize, "size", "s", 128*1024, "buffer size")
+	listenCmd.Flags().StringVarP(&listenAddr, "addr", "a", ":5201", "bind address")
+	listenCmd.Flags().IntVarP(&listenSize, "size", "s", 128*1024, "buffer size")
 	rootCmd.AddCommand(listenCmd)
 }
 
@@ -21,8 +21,8 @@ var listenCmd = &cobra.Command{
 	Short: "Listens for clients",
 	Run: func(cmd *cobra.Command, args []string) {
 		server := run.Server{
-			Addresses: listenAddrs,
-			Size:      listenSize,
+			Address: listenAddr,
+			Size:    listenSize,
 		}
 		server.Run()
 	},
