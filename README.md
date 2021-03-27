@@ -1,3 +1,3 @@
 # yabba
 
-Yet Another Bandwidth Analyzer
+Yet Another Boring Bandwidth Analyzer
