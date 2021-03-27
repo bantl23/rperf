@@ -99,5 +99,5 @@ func clientRunTcp(address string, item int, buffer []byte, connected chan<- stru
 	}
 
 	mbps := float64(totalBytes) * 8 / 1024 / 1024 / totalElapsed.Seconds()
-	fmt.Printf("CLIENT [%s]: %f\n", conn.LocalAddr(), mbps)
+	fmt.Printf("CLIENT [%s]: %f Mbps\n", conn.LocalAddr(), mbps)
 }

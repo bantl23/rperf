@@ -49,5 +49,5 @@ func serverRunTcp(client net.Conn, buffer []byte) {
 		totalElapsed = totalElapsed + elapsed
 	}
 	mbps := float64(totalBytes) * 8 / 1024 / 1024 / totalElapsed.Seconds()
-	fmt.Printf("SERVER [%s]: %f\n", client.RemoteAddr(), mbps)
+	fmt.Printf("SERVER [%s]: %f Mbps\n", client.RemoteAddr(), mbps)
 }
