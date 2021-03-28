@@ -74,10 +74,10 @@ func (client *Client) Run() error {
 				Bytes:       s.Bytes,
 				ElapsedTime: s.ElapsedTime,
 			}
-			items[s.Address] = items[s.Address] + 1
-			totals[s.Address].Bytes = totals[s.Address].Bytes + s.Bytes
-			totals[s.Address].ElapsedTime = totals[s.Address].ElapsedTime + s.ElapsedTime
 		}
+		items[s.Address] = items[s.Address] + 1
+		totals[s.Address].Bytes = totals[s.Address].Bytes + s.Bytes
+		totals[s.Address].ElapsedTime = totals[s.Address].ElapsedTime + s.ElapsedTime
 	}
 	for k := range totals {
 		mbps := float64(totals[k].Bytes) * 8 / 1024 / 1024 / totals[k].ElapsedTime.Seconds() * float64(items[k])
