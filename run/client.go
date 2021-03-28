@@ -99,7 +99,7 @@ func clientRunTcp(address string, item int, buffer []byte, connected chan<- stru
 	connected <- struct{}{} // notify connected
 	<-beg                   // block until all routines are connected
 
-	fmt.Printf("CLIENT %s: STARTING %s [%+v]\n", conn.LocalAddr(), conn.RemoteAddr(), time.Now())
+	fmt.Printf("CLIENT %s: STARTING with %s [%+v]\n", conn.LocalAddr(), conn.RemoteAddr(), time.Now())
 
 	totalBytes := uint64(0)
 	totalElapsed := time.Duration(0)
