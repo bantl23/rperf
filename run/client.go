@@ -62,22 +62,25 @@ func (client *Client) Run() error {
 	wg.Wait()
 
 	totals := make(map[string]*Stats)
+	items := make(map[string]int)
 	// calculate bandwidth
 	for i := range statsChan {
 		s := <-statsChan[i]
 		_, ok := totals[s.Address]
 		if !ok {
+			items[s.Address] = 0
 			totals[s.Address] = &Stats{
 				Address:     s.Address,
 				Bytes:       s.Bytes,
 				ElapsedTime: s.ElapsedTime,
 			}
+			items[s.Address] = items[s.Address] + 1
 			totals[s.Address].Bytes = totals[s.Address].Bytes + s.Bytes
 			totals[s.Address].ElapsedTime = totals[s.Address].ElapsedTime + s.ElapsedTime
 		}
 	}
 	for k := range totals {
-		mbps := float64(totals[k].Bytes) * 8 / 1024 / 1024 / totals[k].ElapsedTime.Seconds()
+		mbps := float64(totals[k].Bytes) * 8 / 1024 / 1024 / totals[k].ElapsedTime.Seconds() * float64(items[k])
 		fmt.Printf("CLIENT AVG [%s]: %f Mbps\n", totals[k].Address, mbps)
 	}
 
