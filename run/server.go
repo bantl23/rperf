@@ -26,7 +26,7 @@ func (server *Server) Run() error {
 			fmt.Println(err)
 			return err
 		}
-		fmt.Printf("SERVER %s: CONNECTED from %s\n", client.LocalAddr(), client.RemoteAddr())
+		fmt.Printf("SERVER %s: CONNECTED from %s [%+v]\n", client.LocalAddr(), client.RemoteAddr(), time.Now())
 		go serverRunTcp(client, buffer)
 	}
 }

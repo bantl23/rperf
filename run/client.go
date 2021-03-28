@@ -70,7 +70,7 @@ func clientRunTcp(address string, item int, buffer []byte, connected chan<- stru
 	}
 	defer conn.Close()
 
-	fmt.Printf("CLIENT %s: CONNECTED to %s\n", conn.LocalAddr(), conn.RemoteAddr())
+	fmt.Printf("CLIENT %s: CONNECTED to %s [%+v]\n", conn.LocalAddr(), conn.RemoteAddr(), time.Now())
 
 	connected <- struct{}{} // notify connected
 	<-beg                   // block until all routines are connected
