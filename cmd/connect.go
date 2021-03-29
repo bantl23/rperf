@@ -12,7 +12,6 @@ var (
 	connections     int
 	connectSize     int
 	connectDuration time.Duration
-	connectUdp      bool
 )
 
 func init() {
@@ -20,7 +19,6 @@ func init() {
 	connectCmd.Flags().IntVarP(&connections, "connections", "c", 1, "parallel connections")
 	connectCmd.Flags().DurationVarP(&connectDuration, "duration", "d", 10*time.Second, "duration")
 	connectCmd.Flags().IntVarP(&connectSize, "size", "s", 128*1024, "buffer size")
-	connectCmd.Flags().BoolVarP(&connectUdp, "udp", "u", false, "udp protocol")
 	rootCmd.AddCommand(connectCmd)
 }
 
@@ -33,7 +31,6 @@ var connectCmd = &cobra.Command{
 			Connections: connections,
 			Duration:    connectDuration,
 			Size:        connectSize,
-			Udp:         connectUdp,
 		}
 		client.Run()
 	},
