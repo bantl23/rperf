@@ -79,13 +79,23 @@ func (client *Client) Run() error {
 
 func clientRunTcp(routine Routine, wg *sync.WaitGroup) {
 	defer wg.Done()
-
-	conn, err := net.Dial("tcp", routine.address)
+	addr, err := net.ResolveTCPAddr("tcp", routine.address)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	conn, err := net.DialTCP("tcp", nil, addr)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	defer conn.Close()
+
+	err = conn.SetWriteBuffer(len(routine.buffer))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	fmt.Printf("CLIENT %s: CONNECTED to %s [%+v]\n", conn.LocalAddr(), conn.RemoteAddr(), time.Now())
 
